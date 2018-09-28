@@ -18,7 +18,8 @@ def present_var(var, var_name="unnamed_variable"):
 def present_vars(vars, var_names, bin_count=30):
     """Presents multiple variables on a single chart
     """
-    map(print_stats, vars, var_names)
+    for var, var_name in zip(vars, var_names):
+        print_stats(var, var_name)
     hists = [plt.hist(var, bin_count, alpha=0.5, label=var_name)[1] for var, var_name in zip(vars, var_names)]
     plt.plot(*hists)
     plt.legend(loc='upper right')
