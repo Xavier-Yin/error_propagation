@@ -37,7 +37,22 @@ def demo():
 #     present_var(y, "y")
     present_vars((x, y), ("x", "y"))
 
+def calc_pH_by_d11Bcarbonate(mu_d11Bcarbonate, sigma_d11Bcarbonate, N_SAMPLE=1000000):
+    # random variable
+    d11Bcarbonate = np.random.normal(mu_d11Bcarbonate, sigma_d11Bcarbonate, N_SAMPLE)
+    print("calc_pH_by_d11Bcarbonate: N_SAMPLE={n}, mu_d11Bcarbonate={m}, sigma_d11Bcarbonate={s}".format(n=N_SAMPLE, m=mu_d11Bcarbonate, s=sigma_d11Bcarbonate))
+    # constants
+    pKb = 8.6152
+    d11Bsw = 39.61
+    alpha = 1.0272
+    print("pKb = {k}, d11Bsw = {s}, alpha = {a}".format(k=pKb, s=d11Bsw, a=alpha))
+    # formula
+    pH = pKb - np.log10((d11Bsw - d11Bcarbonate) / (alpha * d11Bcarbonate - d11Bsw + 1000 * (alpha - 1)))
+    present_vars((d11Bcarbonate, pH), ("d11Bcarbonate", "pH"))
+
 if __name__ == "__main__":
     # Run demo
     # Replace with actual formula for real use
-    demo()
+#     demo()
+    
+    calc_pH_by_d11Bcarbonate(17.39, 0.19)
